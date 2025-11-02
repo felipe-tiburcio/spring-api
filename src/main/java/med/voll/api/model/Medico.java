@@ -40,17 +40,6 @@ public class Medico {
                 this.endereco = new Endereco(medicoDTO.endereco());
         }
 
-        public Medico(Long id, String nome, String email, String telefone, String crm, Especialidade especialidade,
-                        Endereco endereco) {
-                this.id = id;
-                this.nome = nome;
-                this.email = email;
-                this.telefone = telefone;
-                this.crm = crm;
-                this.especialidade = especialidade;
-                this.endereco = endereco;
-        }
-
         public Long getId() {
                 return id;
         }

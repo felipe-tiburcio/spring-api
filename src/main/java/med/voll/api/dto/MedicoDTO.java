@@ -14,6 +14,7 @@ public record MedicoDTO(
                 @NotBlank(message = "Email é obrigatório.") 
                 @Email String email,
 
+                @NotBlank
                 String telefone,
 
                 @NotBlank(message = "CRM é obrigatório.") 

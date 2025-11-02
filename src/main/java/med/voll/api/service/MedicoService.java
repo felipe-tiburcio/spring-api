@@ -1,11 +1,11 @@
 package med.voll.api.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import med.voll.api.dto.MedicoListDTO;
 import med.voll.api.dto.MedicoDTO;
 import med.voll.api.model.Medico;
 import med.voll.api.repository.MedicoRepository;
@@ -25,12 +25,10 @@ public class MedicoService {
         return new MedicoDTO(medicoSaved);
     }
 
-    public List<MedicoDTO> listar() {
+    public Page<MedicoListDTO> listarPaginado(Pageable pageable) {
         return this.medicoRepository
-                .findAll()
-                .stream()
-                .map(MedicoDTO::new)
-                .collect(Collectors.toList());
+                .findAll(pageable)
+                .map(MedicoListDTO::new);
     }
 
 }
