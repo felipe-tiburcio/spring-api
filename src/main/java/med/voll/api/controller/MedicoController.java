@@ -2,9 +2,10 @@ package med.voll.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import med.voll.api.model.Medico;
+import jakarta.validation.Valid;
+import med.voll.api.dto.MedicoDTO;
+import med.voll.api.service.MedicoService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +17,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("medicos")
 public class MedicoController {
 
+    private final MedicoService medicoService;
+
+    public MedicoController(MedicoService medicoService) {
+        this.medicoService = medicoService;
+    }
+
     @PostMapping
-    public Medico saveMedico(@RequestBody Medico medico) {
-        return medico;
+    public MedicoDTO saveMedico(@RequestBody @Valid MedicoDTO medicoDTO) {
+        return this.medicoService.salvar(medicoDTO);
     }
 
     @GetMapping
-    public List<Medico> getListaMedicos() {
-        return new ArrayList<Medico>();
+    public List<MedicoDTO> getListaMedicos() {
+        return this.medicoService.listar();
     }
 
 }
