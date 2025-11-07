@@ -8,7 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import med.voll.api.dto.MedicoDTO;
+import med.voll.api.dto.MedicoCreateDTO;
+import med.voll.api.dto.MedicoUpdateDTO;
 import med.voll.api.model.enums.Especialidade;
 
 @Table(name = "medicos")
@@ -31,7 +32,7 @@ public class Medico {
         public Medico() {
         }
 
-        public Medico(MedicoDTO medicoDTO) {
+        public Medico(MedicoCreateDTO medicoDTO) {
                 this.nome = medicoDTO.nome();
                 this.email = medicoDTO.email();
                 this.telefone = medicoDTO.telefone();
@@ -66,6 +67,21 @@ public class Medico {
 
         public Endereco getEndereco() {
                 return endereco;
+        }
+
+        public void atualizarDados(MedicoUpdateDTO medicoDTO) {
+                if (medicoDTO.nome() != null) {
+                        this.nome = medicoDTO.nome();
+                }
+
+                if (medicoDTO.telefone() != null) {
+                        this.telefone = medicoDTO.telefone();
+                }
+
+                if (medicoDTO.endereco() != null) {
+                        this.endereco.atualizar(medicoDTO.endereco());
+                }
+
         }
 
         @Override

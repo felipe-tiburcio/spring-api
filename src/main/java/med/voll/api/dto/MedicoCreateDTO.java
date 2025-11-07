@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record MedicoDTO(
+public record MedicoCreateDTO(
                 @NotBlank(message = "Nome é obrigatório.") String nome,
 
                 @NotBlank(message = "Email é obrigatório.") 
@@ -27,7 +27,7 @@ public record MedicoDTO(
                 @Valid 
                 EnderecoDTO endereco) {
 
-        public MedicoDTO(Medico medico) {
+        public MedicoCreateDTO(Medico medico) {
                 this(
                                 medico.getNome(),
                                 medico.getEmail(),

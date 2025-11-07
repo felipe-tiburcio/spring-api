@@ -5,8 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import med.voll.api.dto.MedicoListDTO;
-import med.voll.api.dto.MedicoDTO;
+import med.voll.api.dto.MedicoUpdateDTO;
+import med.voll.api.dto.MedicoCreateDTO;
+import med.voll.api.dto.MedicoResponseDTO;
 import med.voll.api.model.Medico;
 import med.voll.api.repository.MedicoRepository;
 
@@ -20,15 +21,27 @@ public class MedicoService {
     }
 
     @Transactional
-    public MedicoDTO salvar(MedicoDTO medicoDTO) {
+    public MedicoCreateDTO salvar(MedicoCreateDTO medicoDTO) {
         Medico medicoSaved = this.medicoRepository.save(new Medico(medicoDTO));
-        return new MedicoDTO(medicoSaved);
+        return new MedicoCreateDTO(medicoSaved);
     }
 
-    public Page<MedicoListDTO> listarPaginado(Pageable pageable) {
+    public Page<MedicoResponseDTO> listarPaginado(Pageable pageable) {
         return this.medicoRepository
                 .findAll(pageable)
-                .map(MedicoListDTO::new);
+                .map(MedicoResponseDTO::new);
+    }
+
+    @Transactional
+    public MedicoUpdateDTO atualizar(MedicoUpdateDTO medicoDTO) {
+        Medico medicoSelected = this.medicoRepository.getReferenceById(medicoDTO.id());
+
+        medicoSelected.atualizarDados(medicoDTO);
+
+        this.medicoRepository.save(medicoSelected);
+
+        return new MedicoUpdateDTO(medicoSelected);
+
     }
 
 }
