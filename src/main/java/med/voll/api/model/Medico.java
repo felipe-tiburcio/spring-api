@@ -29,6 +29,8 @@ public class Medico {
         @Embedded
         private Endereco endereco;
 
+        private boolean isActive;
+
         public Medico() {
         }
 
@@ -39,6 +41,7 @@ public class Medico {
                 this.crm = medicoDTO.crm();
                 this.especialidade = medicoDTO.especialidade();
                 this.endereco = new Endereco(medicoDTO.endereco());
+                this.isActive = true;
         }
 
         public Long getId() {
@@ -82,6 +85,14 @@ public class Medico {
                         this.endereco.atualizar(medicoDTO.endereco());
                 }
 
+        }
+
+        public void desativar() {
+                this.isActive = false;
+        }
+
+        public void reativar() {
+                this.isActive = true;
         }
 
         @Override
